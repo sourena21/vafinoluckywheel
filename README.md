@@ -1,5 +1,6 @@
 # LuckyWheel view
 [![](https://jitpack.io/v/sourena21/vafinoluckywheel.svg)](https://jitpack.io/#sourena21/vafinoluckywheel)
+
 یه ویو ساده برای استفاده از گردونه شانس توی اپ های اندرویدی. برای اینکه بتونید از لایبرری استفاده کنید تیکه کد زیرو رو به buil.gradle پروژه اضافه کنید:
 ```
 allprojects {
@@ -17,7 +18,7 @@ dependencies {
 ```
 کد ورژن رو از بالا بردارین و با Tag توی لینک جا به جا کنید و بعد سینک کنید.
 
-# Usage in code
+## Usage in code
 
 توی لایه xml
 ```
