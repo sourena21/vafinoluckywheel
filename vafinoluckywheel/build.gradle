@@ -1,19 +1,4 @@
-apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'com.android.library'
-
-publish {
-    def groupProjectID = 'hseify69.ir.vafinoluckywheel'
-    def artifactProjectID = 'vafinoluckwheel'
-    def publishVersionID = '0.2'
-
-    userOrg = 'mr-code'
-    repoName = 'vafinoluckwheel'
-    groupId = groupProjectID
-    artifactId = artifactProjectID
-    publishVersion = publishVersionID
-    desc = ''
-    website = 'https://github.com/sourena21/vafinoluckywheel'
-}
 
 android {
     compileSdkVersion 29
@@ -40,7 +25,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation 'androidx.appcompat:appcompat:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
