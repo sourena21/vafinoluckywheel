@@ -18,10 +18,14 @@ import java.util.Random;
 public class LuckyWheelView extends View {
 
     private static final long DELAY_TIME = 2;
-    private static final float DECELERATION_FACTOR = 0.975f;
+    private static final float DECELERATION_FACTOR = 0.985f;
     Paint paint;
     List<LuckItem> itemsList;
-    int[] colorList = {Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN, Color.GRAY};
+    int[] colorList = {Color.rgb(255, 194, 140), Color.rgb(235, 162, 217),
+            Color.rgb(136, 154, 255), Color.rgb(111, 232, 181), Color.rgb(246, 255, 122),
+            Color.rgb(153, 227, 255), Color.rgb(154, 235, 150), Color.rgb(255, 234, 147),
+            Color.rgb(232, 146, 123), Color.rgb(213, 135, 255)
+    };
     int width = 100;
     int heigth = 100;
     int cx = 100;
@@ -73,7 +77,7 @@ public class LuckyWheelView extends View {
 
         float totalLuckAmount = 0;
         for (LuckItem item : itemsList) {
-            totalLuckAmount += item.getLockAmount();
+            totalLuckAmount += 1;
         }
 
         paint = new Paint();
@@ -82,24 +86,33 @@ public class LuckyWheelView extends View {
 
         for (int i = 0; i < itemsList.size(); i++) {
             paint.setColor(colorList[i % 5]);
-            float sweepAngle = (itemsList.get(i).lockAmount / totalLuckAmount) * 360;
+            float sweepAngle = (1 / totalLuckAmount) * 360;
             canvas.drawArc(cx - radious, cy - radious, cx + radious, cy + radious,
                     startAngle, sweepAngle, true, paint);
             //paint.setColor(Color.rgb(0, 0, 0));
             //canvas.drawText(itemsList.get(i).getName(), cx + calcTextLocationX(startAngle, sweepAngle, radious),
             //        cy + calcTextLocationY(startAngle, sweepAngle, radious), paint);
-            paint.setColor(Color.rgb(255, 255, 255));
-            canvas.drawCircle(cx + calcTextLocationX(startAngle, sweepAngle, radious),
-                    cy + calcTextLocationY(startAngle, sweepAngle, radious), 50, paint);
+            // paint.setColor(Color.rgb(255, 255, 255));
+            // canvas.drawCircle(cx + calcTextLocationX(startAngle, sweepAngle, radious),
+            //         cy + calcTextLocationY(startAngle, sweepAngle, radious), 50, paint);
+
+            paint.setColor(Color.rgb(0, 0, 0));
+            Path path = new Path();
+            path.addCircle(cx + calcTextLocationX(startAngle, sweepAngle, radious),
+                    cy + calcTextLocationY(startAngle, sweepAngle, radious), 50, Path.Direction.CW);
+            String text = itemsList.get(i).getName() + repeatSpace(itemsList.get(i).getName().length());
+            canvas.drawTextOnPath(text, path, 0, 0, paint);
             canvas.drawBitmap(itemsList.get(i).getLogoResource(), cx + calcTextLocationX(startAngle, sweepAngle, radious) - 45,
                     cy + calcTextLocationY(startAngle, sweepAngle, radious) - 45, null);
-            //paint.setColor(Color.rgb(255, 255, 255));
-            //drawCircleImage(canvas, cx + calcTextLocationX(startAngle, sweepAngle, radious),
-            // cy + calcTextLocationY(startAngle, sweepAngle, radious), paint);
             startAngle += sweepAngle;
         }
 
         drawIndex(canvas);
+    }
+
+    private String repeatSpace(int length) {
+        String space = "                                                                                                 ";
+        return space.substring(0, 78 - length);
     }
 
     private void drawCircleImage(Canvas canvas, float left, float top, Paint paint) {
@@ -136,7 +149,6 @@ public class LuckyWheelView extends View {
         itemsList = list;
         stopRoration();
         invalidate();
-        startRoration();
     }
 
     public void startRoration() {
@@ -174,10 +186,10 @@ public class LuckyWheelView extends View {
     private void checkWinnerChance() {
         float totalLuckAmount = 0;
         for (LuckItem item : itemsList) {
-            totalLuckAmount += item.getLockAmount();
+            totalLuckAmount += 1;
         }
         for (int i = 0; i < itemsList.size(); i++) {
-            float sweepAngle = (itemsList.get(i).lockAmount / totalLuckAmount) * 360;
+            float sweepAngle = (1 / totalLuckAmount) * 360;
             if (startAngle % 360 < 270 && (startAngle % 360) + sweepAngle > 270) {
                 if (onResult != null) {
                     onResult.onSelectedLuck(itemsList.get(i));

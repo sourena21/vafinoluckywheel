@@ -39,12 +39,14 @@ public class MainActivity extends AppCompatActivity {
         txtItemName = findViewById(R.id.AM_txtSelectedItem);
 
         luckyWheelView.setItemsList(getTempLucks());
+        //luckyWheelView.startRoration();
 
         btnRotation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 txtItemName.setText("");
-                luckyWheelView.setItemsList(getTempLucks());
+                //luckyWheelView.setItemsList(getTempLucks());
+                luckyWheelView.startRoration();
             }
         });
         luckyWheelView.setOnRotationResult(new OnResult() {
@@ -55,17 +57,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private List<LuckItem> getTempLucks() {
         List<LuckItem> itemsList = new ArrayList<>();
         int size = new Random().nextInt(3);
         size += 3;//bein 3 ta 6 shans
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < 5; i++) {
             LuckItem item = new LuckItem();
-//            int amount = new Random().nextInt(99);
-//            amount++;//beine 1 ta 100
-//            item.setLockAmount(amount);
-            item.setLockAmount(10);
             item.setLogoResource(((BitmapDrawable) getResources().getDrawable(R.drawable.ic_vafino_circle1)).getBitmap());
             item.setName("شانس شماره " + i);
             itemsList.add(item);
