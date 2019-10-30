@@ -34,7 +34,7 @@ dependencies {
 LuckyWheelView luckyWheelView = findViewById(R.id.id);
 
 luckyWheelView.setItemsList(/* luck items list */);
-OR
+
 luckyWheelView.startRoration();
 
 luckyWheelView.setOnRotationResult(new OnResult() {
